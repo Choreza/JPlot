@@ -22,10 +22,17 @@ import javafx.scene.layout.HBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import main.java.BarPlot;
+import main.java.FileParser;
+import main.java.ParserFactory;
 
 public class JPlot extends Application {
+  private String action = null;
+  private File file = null;
+  private ParserFactory parserFactory = new ParserFactory();
   
-  @Override public void start(Stage stage) {
+  @Override 
+  public void start(Stage stage) {
+    
     stage.setTitle("JPlot");
 
     BorderPane pane = new BorderPane();
@@ -35,19 +42,23 @@ public class JPlot extends Application {
 
     FileChooser dataChooser = new FileChooser();
     Button openFileButton = new Button("Choose Data File");
-
     openFileButton.setOnAction(new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent event) {
-        File file = dataChooser.showOpenDialog(stage);
+        file = dataChooser.showOpenDialog(stage);
       }
     });
 
+    
     Button drawButton = new Button("Draw");
-
     drawButton.setOnAction(new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent event) {
+        FileParser fp = parserFactory.getParser(action);
+        fp.setFile(file);
+        fp.parse();
+        System.out.println(fp.getVerticalData().toString());
+        System.out.println(fp.getHorizontalStringData().toString());
         pane.setCenter(buildPlot());
       }
     });
@@ -58,18 +69,23 @@ public class JPlot extends Application {
             );
     ComboBox<String> comboBox = new ComboBox<>(options);
     comboBox.setValue("Select Plot");
-
+    comboBox.setOnAction(new EventHandler<ActionEvent>() {
+      @Override
+      public void handle(ActionEvent event) {
+        action = comboBox.getValue();
+      }
+    });
+    
+    
     hbox.getChildren().addAll(new Label("Plot Type:"), comboBox, openFileButton, drawButton);
     pane.setTop(hbox);
-
     Scene scene  = new Scene(pane,800,600);
-
     stage.setScene(scene);
     stage.show();
   }
 
   protected Node buildPlot() {
-    BarPlot<String, Number> lineplot = new BarPlot<>(new CategoryAxis(), new NumberAxis());
+    BarPlot lineplot = new BarPlot(new CategoryAxis(), new NumberAxis());
 
     List<String> x = Arrays.asList(new String[]{"1", "2", "3", 
         "4", "5", "6", "8", "7", "9", "10", "11", "12"});

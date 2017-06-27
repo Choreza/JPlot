@@ -12,13 +12,13 @@ import javafx.scene.chart.XYChart;
  * 
  * @author alejandro
  *
- * @param <T1>  Type of the parameter of the x axe.
- * @param <T2>  Type of the parameter of the y axe.
+ * @param <Number>  Type of the parameter of the x axe.
+ * @param <Number>  Type of the parameter of the y axe.
  */
-public class ScatterPlot<T1, T2> {
-  private Axis<T1> horAxis;
-  private Axis<T2> verAxis;
-  private ScatterChart<T1, T2> plot;
+public class ScatterPlot {
+  private Axis<Number> horAxis;
+  private Axis<Number> verAxis;
+  private ScatterChart<Number, Number> plot;
 
   /**
    * Builder of a ScatterPlot, receives two Axis which can be it's subclasses (NumberAxis or 
@@ -26,10 +26,10 @@ public class ScatterPlot<T1, T2> {
    * @param horAxis   Horizontal axe of the ScatterPlot.
    * @param verAxis   Vertical axe of the ScatterPlot.
    */
-  public ScatterPlot(Axis<T1> horAxis, Axis<T2> verAxis) {
+  public ScatterPlot(Axis<Number> horAxis, Axis<Number> verAxis) {
     this.horAxis = horAxis;
     this.verAxis = verAxis;
-    plot = new ScatterChart<T1, T2>(horAxis, verAxis);
+    plot = new ScatterChart<Number, Number>(horAxis, verAxis);
   }
   
   /**
@@ -39,7 +39,7 @@ public class ScatterPlot<T1, T2> {
    * @param verData  Vertical coordinates of the series of points. 
    *
    */
-  public void addSeries(List<T1> horData, List<T2> verData) {
+  public void addSeries(List<Number> horData, List<Number> verData) {
     addSeries(horData, verData, "");
   }
 
@@ -51,11 +51,11 @@ public class ScatterPlot<T1, T2> {
    * @param verData   Vertical coordinates of the series of points.
    * @param seriesName  Name of the series of points.
    */
-  public void addSeries(List<T1> horData, List<T2> verData, String seriesName) {
+  public void addSeries(List<Number> horData, List<Number> verData, String seriesName) {
     if (horData.size() != verData.size()) {
       throw new IllegalArgumentException("X and Y data must have the same size");
     }
-    XYChart.Series<T1, T2> series = new XYChart.Series<>();
+    XYChart.Series<Number, Number> series = new XYChart.Series<>();
     for (int i = 0; i < horData.size(); i++) {
       series.getData().add(new XYChart.Data<>(horData.get(i), verData.get(i)));
     }
@@ -92,7 +92,7 @@ public class ScatterPlot<T1, T2> {
    * ScatterPlot as adapter.
    * @return    ScatterChart chart.
    */  
-  public ScatterChart<T1, T2> getPlot() {
+  public ScatterChart<Number, Number> getPlot() {
     return plot;
   }
 }
