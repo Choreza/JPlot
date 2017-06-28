@@ -39,7 +39,7 @@ public class FileParser {
   }
   
   /**
-   * Parse data
+   * Parse data.
    */
   public void parse(){}
   
@@ -100,14 +100,6 @@ public class FileParser {
   }
   
   /**
-   * Getter of horizontal data array.
-   * @return  An array of string representing the list of categories of the data.
-   */
-  public ArrayList<String> getHorizontalStringData() {
-    return null;
-  }
-  
-  /**
    * Getter of the vertical data array.
    * @return  An array list containing array lists which contains information of the
    *          vertical coordinates of the data indexed in the same order than the
@@ -127,5 +119,8 @@ public class FileParser {
     return null;
   }
   
+  public ArrayList<String> getHorizontalDataStr() {
+    return null;
+  }
  
 }

@@ -2,6 +2,11 @@ package main.java;
 
 import java.util.HashMap;
 
+/**
+ * Implements the flyweight design pattern to create a factory of parsers.
+ * @author alejandro
+ *
+ */
 public class ParserFactory {
   private HashMap<String, FileParser> hashMap = 
       new HashMap<String, FileParser>();

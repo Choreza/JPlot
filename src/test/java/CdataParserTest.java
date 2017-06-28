@@ -58,24 +58,24 @@ public class CdataParserTest {
   public void gettersTest() {
     cdp.parse();
     assertTrue(cdp.getErrorLogs().isEmpty());
-    assertEquals(cdp.getHorizontalData().size(), cdp.getVerticalData().size());
+    assertEquals(cdp.getSeries().size(), cdp.getVerticalData().size());
     
     cdp.setFile(notFoundFile);
     cdp.parse();
     assertFalse(cdp.getErrorLogs().isEmpty());
-    assertEquals(cdp.getHorizontalData().size(), cdp.getVerticalData().size());
+    assertEquals(cdp.getSeries().size(), cdp.getVerticalData().size());
     
     cdp.setFile(wrongFile);
     cdp.parse();
     assertFalse(cdp.getErrorLogs().isEmpty());
-    assertEquals(cdp.getHorizontalData().size(), cdp.getVerticalData().size());
+    assertEquals(cdp.getSeries().size(), cdp.getVerticalData().size());
   }
   
   @Test
   public void verticalDataVectorsTest() {
     cdp.parse();
     for (ArrayList<Number> arr : cdp.getVerticalData()) {
-      assertEquals(cdp.getSeries().size(), arr.size());
+      assertEquals(cdp.getHorizontalDataStr().size(), arr.size());
     }
   }
   

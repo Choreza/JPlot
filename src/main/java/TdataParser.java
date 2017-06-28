@@ -51,6 +51,8 @@ public class TdataParser extends FileParser {
    * 
    */
   public void parse() {
+    super.parse();
+    clear();
     FileReader in = null;
     try {
       in = new FileReader(file);
@@ -67,7 +69,6 @@ public class TdataParser extends FileParser {
       }
       return;
     }
-    clear();
     BufferedReader bf = null;
     try {
       bf = new BufferedReader(in);

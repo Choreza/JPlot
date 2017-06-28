@@ -36,10 +36,10 @@ public class CdataParser extends FileParser {
   }
   
   @Override
-  public ArrayList<String> getHorizontalStringData() {
+  public ArrayList<String> getHorizontalDataStr() {
     return horData;
   }
-  
+   
   @Override
   public ArrayList<ArrayList<Number>> getVerticalData() {
     return verData;
@@ -50,6 +50,8 @@ public class CdataParser extends FileParser {
    * 
    */
   public void parse() {
+    super.parse();
+    clear();
     FileReader in = null;
     try {
       in = new FileReader(file);
@@ -67,7 +69,7 @@ public class CdataParser extends FileParser {
       }
       return;
     }
-    clear();
+
     BufferedReader bf = null;
     try {
       bf = new BufferedReader(in);
@@ -80,6 +82,7 @@ public class CdataParser extends FileParser {
       
       for (int i = 3; i < toParseInfo.length; ++i) {
         series.add(toParseInfo[i].trim());
+        verData.add(new ArrayList<Number>());
       }
       
       line = bf.readLine().trim();
@@ -99,8 +102,10 @@ public class CdataParser extends FileParser {
         }
         
         if (myNumbers.size() == series.size()) {
+          for (int i = 0; i < series.size(); ++i) {
+            verData.get(i).add(myNumbers.get(i));
+          }
           horData.add(tuple[0].trim());
-          verData.add(myNumbers);
         }
         
         line = bf.readLine();
